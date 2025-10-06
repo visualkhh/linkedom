@@ -5,6 +5,8 @@ const {registerHTMLClass} = require('../shared/register-html-class.js');
 
 const {HTMLElement} = require('./element.js');
 
+import {getInnerHtml} from '../mixin/inner-html.js'
+
 const tagName = 'template';
 
 /**
@@ -15,6 +17,10 @@ class HTMLTemplateElement extends HTMLElement {
     super(ownerDocument, tagName);
     const content = this.ownerDocument.createDocumentFragment();
     (this[CONTENT] = content)[PRIVATE] = this;
+  }
+
+  get innerHTML() {
+    return getInnerHtml(this.content);
   }
 
   get content() {
